@@ -2,6 +2,7 @@ package com.pratyush.jdbc.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -14,10 +15,16 @@ public class AccountDAO {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "root");
 			System.out.println(connection);
 			Statement statement = connection.createStatement() ;	
-			int result = statement.executeUpdate("insert into account values(1, 'Shukla', 'Pratyush', 10000)") ;
-			System.out.println(result+ " rows got inserted !!");
+			ResultSet rs = statement.executeQuery("select * from account") ;
+			while(rs.next()) {
+				System.out.print(rs.getString(2)+ " ");
+				System.out.print(rs.getString(3)+ " ");
+				System.out.print(rs.getInt(4));
+				System.out.println();
+			}
 			
 		} 
+		
 		catch (SQLException e) {
 			
 			e.printStackTrace();
